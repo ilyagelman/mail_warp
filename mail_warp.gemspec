@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ilya Gelman"]
   spec.email         = ["ilyagelman@ilyagelman.ru"]
   spec.description   = %q{Intercept emails and send them to MailWarp service.}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.summary       = %q{No summary}
   spec.homepage      = ""
   spec.license       = "MIT"
 

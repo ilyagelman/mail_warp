@@ -6,7 +6,7 @@ module MailWarp
   def self.configure
     self.config ||= Configuration.new
     yield(config)
-    ActionMailer::Base.register_interceptor(MailCatcher)
+    ActionMailer::Base.register_interceptor(MailWarp)
   end
 
   class Configuration

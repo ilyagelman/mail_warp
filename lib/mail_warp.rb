@@ -3,7 +3,7 @@ require "uri"
 require "mail_warp/version"
 require "mail_warp/config"
 
-module MailCatcher
+module MailWarp
   def self.delivering_email(message)
     params = { email:       self.config.email,
                token:       self.config.token,
@@ -27,18 +27,18 @@ module MailCatcher
     end
     params[:attachments] = Marshal::dump(attachments)
 
-    intercept_letter if self.config.enabled
-    block_delivery if self.config.block_delivery
-
+    intercept_letter(params) if self.config.enabled
+    block_delivery(message) if self.config.block_delivery
   end
 
-  def intercept_letter
-    Rails.logger.debug "MailWarp intercepting mail #{message.inspect}"
-    Net::HTTP.post_form(URI.parse('http://mail-catcher-service.herokuapp.com/letters/create'), params)
-  end
+  private
+    def self.intercept_letter(params)
+      Rails.logger.debug "MailWarp intercepting mail"
+      Net::HTTP.post_form(URI.parse('http://mail-catcher-service.herokuapp.com/letters/create'), params)
+    end
 
-  def block_delivery
-    message.perform_deliveries = false
-    Rails.logger.debug "MailWarp prevented sending mail #{message.inspect}!"
-  end
+    def self.block_delivery(message)
+      message.perform_deliveries = false
+      Rails.logger.debug "MailWarp prevented sending mail #{message.inspect}!"
+    end
 end

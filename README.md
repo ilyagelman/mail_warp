@@ -6,7 +6,7 @@ Simple gem to intercept email and send them to MailWarp service.
 
 Add this line to your application's Gemfile:
 
-    gem 'mail_warp'
+    gem 'mail_warp', git: 'https://github.com/ilyagelman/mail_warp.git'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Then add this configuration to your application or environment config file:
 
-    MailCatcher.configure do |config|
+    MailWarp.configure do |config|
       config.enabled = true        # enable mail interception
       config.block_delivery = true # don't proceed sending email
       config.token = 'token-for-your-application'
